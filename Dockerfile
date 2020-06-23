@@ -1,6 +1,6 @@
 FROM arm32v7/alpine:3.10
 
-LABEL maintainer="snowdream <sn0wdr1am@icloud.com>"
+LABEL maintainer="layui0320"
 
 ENV FRP_VERSION 0.28.2
 
