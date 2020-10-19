@@ -17,7 +17,7 @@ jobs:
             with:
               publish: true
               imageName: layui0320/sakura-frps
-              platform: linux/amd64
+              platform: linux/amd64,linux/arm/v7,linux/arm64
               tag: latest
               dockerHubUser: ${{ secrets.DOCKER_USERNAME }}
               dockerHubPassword: ${{ secrets.DOCKER_PASSWORD }}
