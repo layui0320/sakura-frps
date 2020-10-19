@@ -3,8 +3,7 @@ on:
   push:
     branches:
       - 'arm64v8'
-  release:
-    types: [published]
+
 jobs:
   build:
       runs-on: ubuntu-latest
