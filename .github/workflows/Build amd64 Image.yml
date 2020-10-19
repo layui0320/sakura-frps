@@ -1,23 +1,37 @@
-name: Build Amd64 Image
+name: Build Image
+
 on:
   push:
     branches:
       - 'master'
-  release:
-    types: [published]
+    paths-ignore:
+      - "README.md"
+
 jobs:
-  build:
-      runs-on: ubuntu-latest
-      name: Build image job
-      steps:
-          - name: Checkout master
-            uses: actions/checkout@master
-          - name: Build and publish image
-            uses: ilteoood/docker_buildx@master
-            with:
-              publish: true
-              imageName: layui0320/sakura-frps
-              platform: linux/amd64,linux/arm/v7,linux/arm64
-              tag: latest
-              dockerHubUser: ${{ secrets.DOCKER_USERNAME }}
-              dockerHubPassword: ${{ secrets.DOCKER_PASSWORD }}
+  buildx:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Dockerhub login
+        env:
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        run: |
+          echo "${DOCKER_PASSWORD}" | docker login --username ${DOCKER_USERNAME} --password-stdin
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: crazy-max/ghaction-docker-buildx@v1
+        with:
+          buildx-version: latest
+      - name: Build dockerfile (with push)
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        run: |
+          docker buildx build \
+          --platform=linux/amd64,linux/arm64 \
+          --output "type=image,push=true" \
+          --file ./test/Dockerfile ./test \
+          --file ./test/Dockerfile-arm64 ./test
+          --tag layui0320/sakura-frps:latest
+
