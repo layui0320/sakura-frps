@@ -1,5 +1,8 @@
 name: Build arm64v8 Image
 on:
+  push:
+    branches:
+      - 'arm64v8'
   release:
     types: [published]
 jobs:
