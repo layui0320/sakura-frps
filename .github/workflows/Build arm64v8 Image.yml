@@ -15,7 +15,7 @@ jobs:
             uses: ilteoood/docker_buildx@master
             with:
               publish: true
-              imageName: layui0320/sakura-frps
+              imageName: layui0320/sakura-frpc
               platform: linux/arm64
               tag: arm64v8
               dockerHubUser: ${{ secrets.DOCKER_USERNAME }} 
