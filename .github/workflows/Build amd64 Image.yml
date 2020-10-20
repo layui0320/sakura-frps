@@ -32,5 +32,5 @@ jobs:
           --platform=linux/amd64 \
           --output "type=image,push=true" \
           --file ./test/Dockerfile ./test \
-          --tag layui0320amd64/sakura-frpc:latest
+          --tag layui0320/arm64-sakura-frps:latest
 
