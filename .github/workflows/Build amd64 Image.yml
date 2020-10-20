@@ -5,7 +5,7 @@ on:
     branches:
       - 'master'
     paths-ignore:
-      - "README.mxd"
+      - "README.md"
 
 jobs:
   buildx:
@@ -29,8 +29,8 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         run: |
           docker buildx build \
-          --platform=linux/amd64,linux/arm64,linux/386 \
+          --platform=linux/amd64 \
           --output "type=image,push=true" \
           --file ./test/Dockerfile ./test \
-          --tag layui0320/sakura-frps:latest
+          --tag layui0320amd64/sakura-frpc:latest
 
